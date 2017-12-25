@@ -5,7 +5,7 @@
  *      Author: bibei
  */
 
-#include <mii_foundation/repository/registry.h>
+#include "repository/registry.h"
 
 #include <iostream>
 
@@ -19,7 +19,9 @@ Registry::Registry() {
 }
 
 Registry::~Registry() {
-  ;
+  for (auto& cmd : cmd_origin_) {
+    delete cmd.second.flag;
+  }
 }
 
 bool Registry::registerResource(const MiiString& _n, ResType _handle) {
@@ -32,13 +34,19 @@ bool Registry::registerResource(const MiiString& _n, ResType _handle) {
   return true;
 }
 
-bool Registry::registerCommand(const MiiString& _n, CmdType _handle) {
+bool Registry::registerCommand(const MiiString& _n, CmdType _handle, std::atomic_bool** flag) {
   if (cmd_origin_.end() != cmd_origin_.find(_n)) {
     LOG_WARNING << "The named command '" << _n << "' has registered in the command table."
         << ", now it will be replaced.";
   }
 
-  cmd_origin_[_n] = _handle;
+  CmdStruct  str;
+  str.handle      = _handle;
+  str.flag        = new std::atomic_bool;
+  if (flag) *flag = str.flag;
+
+  str.flag->store(false);
+  cmd_origin_[_n] = str;
   return true;
 }
 
@@ -100,8 +108,8 @@ void Registry::print() {
     LOG_WARNING << "COUNT\tNAME\t\tTYPE\t\tADDR";
     count = 0;
     for (const auto& l : cmd_origin_) {
-      LOG_INFO << count++ << "\t" << l.first << "\t" << getTypeName(l.second)
-          << "  " << l.second;
+      LOG_INFO << count++ << "\t" << l.first << "\t" << getTypeName(l.second.handle)
+          << "  " << l.second.handle;
     }
     LOG_WARNING << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+";
   }

@@ -8,7 +8,7 @@
 #ifndef INCLUDE_SYSTEM_RESOURCES_JOINT_H_
 #define INCLUDE_SYSTEM_RESOURCES_JOINT_H_
 
-#include <mii_foundation/foundation/label.h>
+#include "foundation/label.h"
 #include <atomic>
 
 namespace middleware {
@@ -69,10 +69,10 @@ protected:
   JntType             jnt_type_;
   LegType             leg_type_;
   MiiString           jnt_name_;
+  class Motor*        joint_motor_;
   // The private data structure
   class JointState*   joint_state_;
   class JointCommand* joint_command_;
-  class Motor*        joint_motor_;
 };
 
 } /* namespace middleware */

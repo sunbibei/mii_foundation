@@ -8,7 +8,7 @@
 #ifndef INCLUDE_REPOSITORY_RESOURCE_MOTOR_H_
 #define INCLUDE_REPOSITORY_RESOURCE_MOTOR_H_
 
-#include <mii_foundation/foundation/label.h>
+#include "foundation/label.h"
 #include <atomic>
 
 namespace middleware {

@@ -5,8 +5,8 @@
  *      Author: bibei
  */
 
-#include "mii_foundation/foundation/auto_instanceor.h"
-#include "mii_foundation/foundation/label.h"
+#include "foundation/auto_instanceor.h"
+#include "foundation/label.h"
 // Cancel the namespace middleware
 // namespace middleware {
 

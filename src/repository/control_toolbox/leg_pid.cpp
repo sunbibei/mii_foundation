@@ -5,7 +5,7 @@
  *      Author: bibei
  */
 
-#include <mii_foundation/repository/control_toolbox/leg_pid.h>
+#include "repository/control_toolbox/leg_pid.h"
 
 namespace middleware {
 

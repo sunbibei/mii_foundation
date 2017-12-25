@@ -44,7 +44,8 @@ set(SRC_REP             ${SRC_ROOT}/repository)
 set(SRC_REP_RES         ${SRC_REP}/resource)
 set(SRC_REP_EST         ${SRC_REP}/estimator)
 set(SRC_REP_BOX         ${SRC_REP}/control_toolbox)
-set(SRC_)
+
+set(SRC_TOOLBOX         ${SRC_ROOT}/toolbox)
 
 # Files define.
 set(SYS_FOUDATION_FILES ${SRC_FOUNDATION}/label.cpp
@@ -72,6 +73,9 @@ set(SYS_REPOSITORY_FILES  ${SRC_REP_RES}/imu_sensor.cpp
                           ${SRC_REP_BOX}/pid.cpp
 )
 
+set(SYS_TOOLBOX_FILES     ${SRC_TOOLBOX}/timer.cpp
+)
+
 ## Declare a C++ library
 add_library(${PROJECT_NAME}
   ${SYS_FOUDATION_FILES}
@@ -83,6 +87,10 @@ add_library(${PROJECT_NAME}_registry
 
 add_library(${PROJECT_NAME}_repository
   ${SYS_REPOSITORY_FILES}
+)
+
+add_library(${PROJECT_NAME}_toolbox
+  ${SYS_TOOLBOX_FILES}
 )
 
 ## Specify libraries to link a library or executable target against
@@ -103,6 +111,12 @@ target_link_libraries(${PROJECT_NAME}_repository
   ${PROJECT_NAME}
 )
 
+# target_link_libraries(${PROJECT_NAME}_repository
+#   ${catkin_LIBRARIES}
+#   ${EIGEN3_LIBRARIES}
+#   ${PROJECT_NAME}
+# )
+
 #############
 ## Install ##
 #############
@@ -113,15 +127,16 @@ install(DIRECTORY include/
 install(TARGETS ${PROJECT_NAME}
                 ${PROJECT_NAME}_registry
                 ${PROJECT_NAME}_repository
+                ${PROJECT_NAME}_toolbox
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
-foreach(dir include)
-  install(DIRECTORY ${dir}/
-    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/${dir})
-endforeach(dir)
+# foreach(dir include)
+#   install(DIRECTORY ${dir}/
+#     DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/${dir})
+# endforeach(dir)
 
 #############
 ## Testing ##

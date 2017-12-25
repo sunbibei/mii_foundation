@@ -7,7 +7,7 @@
 #include <cmath>
 using namespace std;
 
-#include "mii_foundation/foundation/internal/expr.h"
+#include "foundation/internal/expr.h"
 
 namespace internal {
 

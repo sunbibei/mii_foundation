@@ -5,8 +5,8 @@
  *      Author: bibei
  */
 
-#include "mii_foundation/foundation/cfg_reader.h"
-#include <mii_foundation/repository/resource/force_sensor.h>
+#include "foundation/cfg_reader.h"
+#include "repository/resource/force_sensor.h"
 
 #include <boost/algorithm/string.hpp>
 #include <tinyxml.h>

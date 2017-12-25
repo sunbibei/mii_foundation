@@ -5,7 +5,7 @@
  *      Author: silence
  */
 
-#include <mii_foundation/foundation/label.h>
+#include "foundation/label.h"
 
 // Cancel the namespace middleware
 // namespace middleware {

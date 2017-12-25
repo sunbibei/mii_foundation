@@ -5,8 +5,8 @@
  *      Author: bibei
  */
 
-#include <mii_foundation/repository/estimator/touchdown_estimator.h>
-#include <mii_foundation/foundation/cfg_reader.h>
+#include "repository/estimator/touchdown_estimator.h"
+#include "foundation/cfg_reader.h"
 
 namespace middleware {
 

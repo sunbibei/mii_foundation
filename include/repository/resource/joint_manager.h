@@ -8,8 +8,9 @@
 #ifndef INCLUDE_SYSTEM_ROBOT_JOINT_MANAGER_H_
 #define INCLUDE_SYSTEM_ROBOT_JOINT_MANAGER_H_
 
-#include <mii_foundation/repository/resource/joint.h>
-#include <mii_foundation/foundation/internal/resource_manager.h>
+#include "repository/resource/joint.h"
+#include "foundation/internal/resource_manager.h"
+
 #include <vector>
 #include <string>
 #include <map>

@@ -5,8 +5,8 @@
  *      Author: bibei
  */
 
-#include <mii_foundation/repository/control_toolbox/pid.h>
-#include <mii_foundation/foundation/cfg_reader.h>
+#include "repository/control_toolbox/pid.h"
+#include "foundation/cfg_reader.h"
 
 #include <boost/algorithm/clamp.hpp>
 #include <fstream>

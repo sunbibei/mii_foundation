@@ -5,9 +5,8 @@
  *      Author: silence
  */
 
-#include "mii_foundation/foundation/cfg_reader.h"
-// #include "cfg_reader.h"
-#include "mii_foundation/foundation/internal/mii_config.h"
+#include "foundation/cfg_reader.h"
+#include "foundation/internal/mii_config.h"
 
 #include <fstream>
 #include <dirent.h>

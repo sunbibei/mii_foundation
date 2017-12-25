@@ -5,8 +5,8 @@
  *      Author: bibei
  */
 
-#include <mii_foundation/repository/resource/power.h>
-#include <mii_foundation/foundation/cfg_reader.h>
+#include "repository/resource/power.h"
+#include "foundation/cfg_reader.h"
 
 namespace middleware {
 

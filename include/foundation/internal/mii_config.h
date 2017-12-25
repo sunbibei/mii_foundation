@@ -12,7 +12,6 @@
 
 #include "../utf.h"
 #include <functional>
-
 #include <tinyxml.h>
 
 namespace internal {

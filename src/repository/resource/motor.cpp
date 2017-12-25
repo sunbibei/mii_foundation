@@ -5,11 +5,10 @@
  *      Author: robot
  */
 
-#include <mii_foundation/repository/resource/motor.h>
-#include <mii_foundation/repository/resource/joint.h>
-#include <mii_foundation/repository/resource/joint_manager.h>
-
-#include <mii_foundation/foundation/cfg_reader.h>
+#include "repository/resource/motor.h"
+#include "repository/resource/joint.h"
+#include "repository/resource/joint_manager.h"
+#include "foundation/cfg_reader.h"
 
 namespace middleware {
 
@@ -83,6 +82,7 @@ void Motor::updateMotorCommand(double v) {
   case JntCmdType::CMD_MOTOR_VEL:
     motor_cmd_->command = v;
     new_command_ = true;
+    // LOG_INFO << "Motor[" << motor_name() << "]: " << v;
     break;
   default:
     LOG_ERROR << "What fucking joint command mode. The current mode is "

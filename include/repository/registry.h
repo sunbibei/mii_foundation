@@ -8,20 +8,32 @@
 #ifndef INCLUDE_REPOSITORY_REGISTRY_H_
 #define INCLUDE_REPOSITORY_REGISTRY_H_
 
-#include <mii_foundation/foundation/utf.h>
+#include "foundation/utf.h"
+
 #include <boost/variant.hpp>
 #include <boost/shared_ptr.hpp>
 #include <Eigen/Dense>
+#include <atomic>
 
 namespace middleware {
 
-#define REG_RESOURCE(_n, _var)  ( middleware::Registry::instance()->registerResource((_n), (_var)) )
+#define REG_RESOURCE(_n, _var)  \
+  ( middleware::Registry::instance()->registerResource((_n), (_var)) )
 
-#define REG_COMMAND(_n, _var)   ( middleware::Registry::instance()->registerCommand ((_n), (_var)) )
+#define REG_COMMAND(_n, _var, _flag)   \
+  ( middleware::Registry::instance()->registerCommand ((_n), (_var), (_flag)) )
 
-#define GET_RESOURCE(_n, _type) ( middleware::Registry::instance()->resource< _type >(_n) )
+#define REG_COMMAND_NO_FLAG(_n, _var)   \
+  ( middleware::Registry::instance()->registerCommand ((_n), (_var)) )
 
-#define GET_COMMAND(_n, _type)  ( middleware::Registry::instance()->command< _type > (_n) )
+#define GET_RESOURCE(_n, _type) \
+  ( middleware::Registry::instance()->resource< _type >(_n) )
+
+#define GET_COMMAND(_n, _flag, _type) \
+  ( middleware::Registry::instance()->command< _type >(_n, _flag) )
+
+#define GET_COMMAND_NO_FLAG(_n, _type) \
+  ( middleware::Registry::instance()->command< _type >(_n) )
 
 template <typename _T>
 using MiiPtr = boost::shared_ptr<_T>;
@@ -39,13 +51,13 @@ class Registry {
 
 public:
   bool registerResource(const MiiString&, ResType);
-  bool registerCommand (const MiiString&, CmdType);
+  bool registerCommand (const MiiString&, CmdType, std::atomic_bool** flag = nullptr);
 
   ///! The boost static assert fail! so we need split into two methods.
   template<typename _DataType>
   _DataType resource(const MiiString&);
   template<typename _DataType>
-  _DataType command(const MiiString&);
+  _DataType command(const MiiString&, std::atomic_bool** flag = nullptr);
 
 public:
   ///! Query the given name whether register in the registry.
@@ -58,8 +70,13 @@ public:
   void print();
 
 protected:
-  MiiMap<MiiString, ResType>   res_origin_;
-  MiiMap<MiiString, CmdType>   cmd_origin_;
+  MiiMap<MiiString, ResType>    res_origin_;
+
+  typedef struct {
+    CmdType          handle;
+    std::atomic_bool* flag;
+  } CmdStruct;
+  MiiMap<MiiString, CmdStruct>  cmd_origin_;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -77,15 +94,16 @@ _DataType Registry::resource(const MiiString& _res_name) {
 }
 
 template <typename _DataType>
-_DataType Registry::command(const MiiString& _res_name) {
+_DataType Registry::command(const MiiString& _res_name, std::atomic_bool** flag) {
   if (cmd_origin_.end() == cmd_origin_.find(_res_name)) {
     return _DataType(nullptr);
   }
 
   auto var_cmd = cmd_origin_[_res_name];
-  assert(var_cmd.type() == typeid(_DataType));
+  assert(var_cmd.handle.type() == typeid(_DataType));
 
-  return boost::get<_DataType>(var_cmd);
+  if (flag) *flag = var_cmd.flag;
+  return boost::get<_DataType>(var_cmd.handle);
 }
 
 } /* namespace middleware */

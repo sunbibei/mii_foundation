@@ -5,7 +5,7 @@
  *      Author: silence
  */
 
-#include <mii_foundation/repository/resource/joint_manager.h>
+#include "repository/resource/joint_manager.h"
 
 namespace middleware {
 

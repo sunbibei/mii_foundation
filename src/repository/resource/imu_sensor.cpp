@@ -5,9 +5,8 @@
  *      Author: bibei
  */
 
-#include <mii_foundation/repository/resource/imu_sensor.h>
-
-#include "mii_foundation/foundation/cfg_reader.h"
+#include "repository/resource/imu_sensor.h"
+#include "foundation/cfg_reader.h"
 
 namespace middleware {
 

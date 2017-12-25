@@ -8,11 +8,11 @@
 #ifndef INCLUDE_SYSTEM_RESOURCES_LABEL_H_
 #define INCLUDE_SYSTEM_RESOURCES_LABEL_H_
 
-#include <string>
 #include <map>
-
+#include <string>
 #include <boost/shared_ptr.hpp>
-#include <mii_foundation/foundation/utf.h>
+
+#include "foundation/utf.h"
 
 
 // Cancel the namespace middleware
@@ -48,11 +48,11 @@ public:
       LOG_WARNING << "Label's table, address " << &s_label_table_
           << ", size " << s_label_table_.size();
       LOG_WARNING << "-------------------------------------------------------------";
-      LOG_WARNING << "COUNT\t\tLABEL\t\t\tADDR\t\tREF";
+      LOG_WARNING << "COUNT\t\tLABEL\t\t\tREF\t\tADDR";
       int count = 0;
       for (auto l : s_label_table_) {
         LOG_INFO << count++ << "\t" << l.second->getLabel()
-            << "\t\t" << l.second << "\t" << l.second.use_count();
+            << "\t\t" << l.second.use_count() << "\t" << l.second;
       }
       LOG_WARNING << "+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+";
     }

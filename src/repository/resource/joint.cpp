@@ -5,18 +5,16 @@
  *      Author: silence
  */
 
-#include "mii_foundation/foundation/cfg_reader.h"
-#include <mii_foundation/foundation/utf.h>
+#include "foundation/cfg_reader.h"
+#include "foundation/utf.h"
+#include "repository/resource/motor.h"
+#include "repository/resource/joint.h"
+#include "repository/resource/joint_manager.h"
 
 #include <chrono>
 #include <tinyxml.h>
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/clamp.hpp>
-
-#include <mii_foundation/repository/resource/motor.h>
-#include <mii_foundation/repository/resource/joint.h>
-#include <mii_foundation/repository/resource/joint_manager.h>
-// #include <system/platform/protocol/qr_protocol.h>
 
 namespace middleware {
 struct JointState {
@@ -55,7 +53,7 @@ struct JointCommand {
 
 Joint::Joint(const MiiString& l)
   : Label(l), new_command_(false), jnt_type_(JntType::UNKNOWN_JNT),
-    leg_type_(LegType::UNKNOWN_LEG),  joint_motor_(nullptr),/*msg_id_(INVALID_BYTE),*/
+    leg_type_(LegType::UNKNOWN_LEG), jnt_name_(""), joint_motor_(nullptr),/*msg_id_(INVALID_BYTE),*/
     joint_state_(nullptr), joint_command_(nullptr) {
   // The code as follow should be here.
   // JointManager::instance()->add(this);
@@ -108,7 +106,7 @@ void Joint::updateJointPosition(double pos) {
   joint_state_->vel_ = (pos - joint_state_->pos_) / count;
   joint_state_->pos_ = pos;
 
-  // LOG_DEBUG << jnt_name_ << ": " << joint_state_->pos_ << ", " << joint_state_->vel_;
+  LOG_DEBUG << jnt_name_ << ": " << joint_state_->pos_ << ", " << joint_state_->vel_;
 }
 
 double Joint::joint_position() const {
@@ -154,6 +152,7 @@ void Joint::updateJointCommand(double v) {
     joint_command_->command_[POS_CMD_IDX] = boost::algorithm::clamp(v,
                                     joint_command_->MIN_POS_,
                                     joint_command_->MAX_POS_);
+    LOG_INFO << "Joint[" << jnt_name_ << "]: " << joint_command_->command_[POS_CMD_IDX];
     new_command_ = true;
     break;
   case JntCmdType::CMD_MOTOR_VEL:

@@ -5,8 +5,8 @@
  *      Author: bibei
  */
 
-#include "mii_foundation/foundation/internal/expr.h"
-#include "mii_foundation/foundation/internal/mii_config.h"
+#include "foundation/internal/expr.h"
+#include "foundation/internal/mii_config.h"
 
 #include <boost/algorithm/string.hpp>
 #include <fstream>
