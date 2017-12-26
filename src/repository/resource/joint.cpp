@@ -106,7 +106,7 @@ void Joint::updateJointPosition(double pos) {
   joint_state_->vel_ = (pos - joint_state_->pos_) / count;
   joint_state_->pos_ = pos;
 
-  LOG_DEBUG << jnt_name_ << ": " << joint_state_->pos_ << ", " << joint_state_->vel_;
+  // LOG_WARNING << jnt_name_ << ": " << joint_state_->pos_ << ", " << joint_state_->vel_;
 }
 
 double Joint::joint_position() const {
