@@ -189,8 +189,8 @@ void Joint::updateJointCommand(double v0, double v1) {
 
 void Joint::stop() {
   switch (joint_command_->mode_) {
-  case JntCmdType::CMD_POS:
-    updateJointCommand(joint_state_->pos_);
+  case JntCmdType::CMD_MOTOR_VEL:
+    joint_motor_->updateMotorCommand(0);
     break;
   case JntCmdType::CMD_POS_VEL:
     updateJointCommand(joint_state_->pos_, 0);

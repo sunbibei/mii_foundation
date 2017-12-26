@@ -22,6 +22,7 @@ public:
   virtual ~DataService();
 
 public:
+  virtual void start();
   virtual void tick();
 
 protected:

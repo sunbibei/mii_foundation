@@ -16,6 +16,8 @@
 
 namespace middleware {
 
+#define DATA_SERVICE_THREAD "data-service"
+
 struct DataSources {
   MiiVector<const double*> jnt_pos;
   MiiVector<const double*> jnt_vel;
@@ -75,7 +77,7 @@ bool DataService::init() {
 
   double frequency = 50.0;
   cfg->get_value(getLabel(), "frequency", frequency);
-  tick_duration_ = std::chrono::milliseconds((int64_t)1000.0/frequency);
+  tick_duration_ = std::chrono::milliseconds((int)(1000.0/frequency));
   tick_alive_    = true;
 
   path_ = ".";
@@ -115,8 +117,8 @@ bool DataService::init() {
   }
 
   auto _jnts = JointManager::instance();
-  while (!str.empty()) {
-    const auto& t = str.back();
+  for (size_t i = 0; i < str.size(); ++i) {
+    const auto& t = str[i];
     for (const auto& l : legs) {
       for (const auto& j : {JntType::YAW, JntType::HIP, JntType::KNEE}) {
         auto jnt = _jnts->getJointHandle(l, j);
@@ -133,11 +135,11 @@ bool DataService::init() {
           LOG_ERROR << "Error joint states indices!";
         }
 
-        ofd_ << jnt->joint_name() << t << " ";
+        ofd_ << jnt->joint_name() << "_" << t << " ";
       } // end for j
     } // end for l
 
-    str.pop_back();
+    // str.pop_back();
   } // end while
 
   cfg->get_value(sub_tag, "tds", str);
@@ -154,6 +156,8 @@ bool DataService::init() {
   }
 
   ofd_ << std::endl;
+
+  start();
   return true;
 }
 
@@ -163,6 +167,10 @@ DataService::~DataService() {
 
   delete buffer_;
   buffer_ = nullptr;
+}
+
+void DataService::start() {
+    ThreadPool::instance()->add(DATA_SERVICE_THREAD, &DataService::tick, this);
 }
 
 void DataService::tick() {
