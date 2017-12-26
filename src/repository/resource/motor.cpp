@@ -82,7 +82,7 @@ void Motor::updateMotorCommand(double v) {
   case JntCmdType::CMD_MOTOR_VEL:
     motor_cmd_->command = v;
     new_command_ = true;
-    // LOG_INFO << "Motor[" << motor_name() << "]: " << v;
+    LOG_INFO << "Motor[" << motor_name() << "]: " << v;
     break;
   default:
     LOG_ERROR << "What fucking joint command mode. The current mode is "

@@ -78,6 +78,8 @@ public:
   void joint_position_const_pointer(MiiVector<const double*>&);
   void joint_velocity_const_pointer(MiiVector<const double*>&);
   void joint_torque_const_pointer  (MiiVector<const double*>&);
+  //
+  void joint_names(MiiVector<MiiString>&);
 
 protected:
   // Owner Size * Joint Size

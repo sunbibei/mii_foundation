@@ -111,6 +111,13 @@ void JointManager::joint_velocity_const_pointer(const MiiString& _n, const doubl
 void JointManager::joint_torque_const_pointer(const MiiString& _n, const double* & _c_p) {
   _c_p = jnt_list_by_name_[_n]->joint_torque_const_pointer();
 }
+
+void JointManager::joint_names(MiiVector<MiiString>& names) {
+  names.clear();
+  for (auto jnt : res_list_) {
+    names.push_back(jnt->joint_name());
+  }
+}
 // override
 void JointManager::joint_position_const_pointer(MiiVector<const double*>& _c_ps) {
   _c_ps.clear();
