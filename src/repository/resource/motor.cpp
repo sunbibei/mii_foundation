@@ -10,6 +10,8 @@
 #include "repository/resource/joint_manager.h"
 #include "foundation/cfg_reader.h"
 
+#include <boost/algorithm/clamp.hpp>
+
 namespace middleware {
 
 struct MotorState {
@@ -80,9 +82,12 @@ Motor::~Motor() {
 void Motor::updateMotorCommand(double v) {
   switch (cmd_mode()) {
   case JntCmdType::CMD_MOTOR_VEL:
-    motor_cmd_->command = v;
+    motor_cmd_->command = boost::algorithm::clamp(v,
+                                  motor_cmd_->MIN_VEL,
+                                  motor_cmd_->MAX_VEL);
+    // motor_cmd_->command = v;
     new_command_ = true;
-    LOG_INFO << "Motor[" << motor_name() << "]: " << v;
+    // LOG_INFO << "Motor[" << motor_name() << "]: " << v;
     break;
   default:
     LOG_ERROR << "What fucking joint command mode. The current mode is "
