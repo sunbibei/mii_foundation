@@ -74,7 +74,7 @@ set(SYS_REPOSITORY_FILES  ${SRC_REP_RES}/imu_sensor.cpp
                           ${SRC_REP}/data_service.cpp
 )
 
-set(SYS_TOOLBOX_FILES     ${SRC_TOOLBOX}/timer.cpp
+set(SYS_TOOLBOX_FILES     ${SRC_TOOLBOX}/time_control.cpp
 )
 
 ## Declare a C++ library

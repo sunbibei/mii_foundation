@@ -10,8 +10,6 @@
 #include <foundation/thread/threadpool.h>
 #include <repository/resource/joint_manager.h>
 #include <repository/resource/force_sensor.h>
-#include <toolbox/timer.h>
-
 #include <stdio.h>
 
 namespace middleware {
@@ -176,7 +174,7 @@ void DataService::start() {
 void DataService::tick() {
   TIMER_INIT
 
-  timer_ = new Timer;
+  timer_ = new TimeControl();
   timer_->start();
   while (tick_alive_) {
     ofd_ << timer_->dt() << " ";

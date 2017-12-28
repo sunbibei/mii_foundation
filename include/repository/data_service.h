@@ -9,8 +9,9 @@
 #define INCLUDE_REPOSITORY_DATA_SERVICE_H_
 
 #include <foundation/label.h>
+#include <toolbox/time_control.h>
+
 #include <fstream>
-#include <chrono>
 
 namespace middleware {
 
@@ -35,7 +36,7 @@ protected:
   bool                       tick_alive_;
   std::chrono::milliseconds  tick_duration_;
 
-  class Timer*       timer_;
+  TimeControl*       timer_;
   class DataSources* sources_;
 
 };

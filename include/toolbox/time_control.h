@@ -5,16 +5,17 @@
  *      Author: bibei
  */
 
-#ifndef INCLUDE_TOOLBOX_TIMER_H_
-#define INCLUDE_TOOLBOX_TIMER_H_
+#ifndef INCLUDE_TOOLBOX_TIME_CONTROL_H_
+#define INCLUDE_TOOLBOX_TIME_CONTROL_H_
 
 #include <chrono>
 
-namespace middleware {
+///! cancel the namespace
+// namespace middleware {
 
-class Timer {
+class TimeControl {
 public:
-  Timer();
+  TimeControl();
 
   /*!
    * @brief The timer whether is running.
@@ -55,6 +56,6 @@ private:
   const std::chrono::high_resolution_clock::time_point INVALID_TIME_POINT;
 };
 
-} /* namespace middleware */
+// } /* namespace middleware */
 
-#endif /* INCLUDE_TOOLBOX_TIMER_H_ */
+#endif /* INCLUDE_TOOLBOX_TIME_CONTROL_H_ */

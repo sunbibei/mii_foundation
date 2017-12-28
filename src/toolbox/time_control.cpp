@@ -5,11 +5,12 @@
  *      Author: bibei
  */
 
-#include <toolbox/timer.h>
+#include <toolbox/time_control.h>
 
-namespace middleware {
+///! cancel the namespace
+// namespace middleware {
 
-Timer::Timer()
+TimeControl::TimeControl()
   : INVALID_TIME_POINT(std::chrono::high_resolution_clock::time_point::max()) {
   curr_update_t_ = INVALID_TIME_POINT;
   last_update_t_ = INVALID_TIME_POINT;
@@ -18,11 +19,11 @@ Timer::Timer()
   t1_ = INVALID_TIME_POINT;
 }
 
-bool Timer::is_running() {
+bool TimeControl::is_running() {
   return (last_update_t_ != INVALID_TIME_POINT);
 }
 
-void Timer::start() {
+void TimeControl::start() {
   curr_update_t_ = std::chrono::high_resolution_clock::now();
   last_update_t_ = curr_update_t_;
   t0_            = curr_update_t_;
@@ -31,7 +32,7 @@ void Timer::start() {
 /*!
  * @brief The duration (in ms)
  */
-int64_t Timer::dt() {
+int64_t TimeControl::dt() {
   curr_update_t_ = std::chrono::high_resolution_clock::now();
   dt_            = std::chrono::duration_cast<std::chrono::milliseconds>
       (curr_update_t_ - last_update_t_).count();
@@ -39,11 +40,11 @@ int64_t Timer::dt() {
   return dt_;
 }
 
-double Timer::dt_s() {
+double TimeControl::dt_s() {
   return dt()/1000.0;
 }
 
-void Timer::stop(int64_t* span) {
+void TimeControl::stop(int64_t* span) {
   t1_ = std::chrono::high_resolution_clock::now();
   curr_update_t_ = INVALID_TIME_POINT;
   last_update_t_ = INVALID_TIME_POINT;
@@ -51,4 +52,4 @@ void Timer::stop(int64_t* span) {
                       (t1_ - t0_).count();
 }
 
-} /* namespace middleware */
+// } /* namespace middleware */
