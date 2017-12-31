@@ -15,13 +15,17 @@
 
 class TimeControl {
 public:
-  TimeControl();
+  /*!
+   * @brief The construct methods, where timer will call @start()
+   *        when _s is true.
+   */
+  TimeControl(bool _s = false);
 
   /*!
    * @brief The timer whether is running.
    * @return return true if the timer is running.
    */
-  bool is_running();
+  bool running();
 
   /*!
    * @brief Start the timer.
@@ -36,12 +40,19 @@ public:
    * @brief The duration (in s)
    */
   double  dt_s();
+  /*!
+   * @brief Return the time span from @start (in ms)
+   */
+  int64_t span();
 
   /*!
    * @brief Stop the timer, and return timespan from start();
    * @param span The dufault is nullptr, if you don't care the timespan.
    */
   void stop(int64_t* span = nullptr);
+
+private:
+  void clear();
 
 private:
   ///! time control (in ms)

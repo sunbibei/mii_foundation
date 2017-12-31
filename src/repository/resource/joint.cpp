@@ -121,6 +121,14 @@ const double* Joint::joint_position_const_pointer() const {
   return &(joint_state_->pos_);
 }
 
+double Joint::joint_position_min() const {
+  return joint_command_->MIN_POS_;
+}
+
+double Joint::joint_position_max() const {
+  return joint_command_->MAX_POS_;
+}
+
 double Joint::joint_velocity() const {
   return joint_state_->vel_;
 }
@@ -133,6 +141,16 @@ const double* Joint::joint_velocity_const_pointer() const {
   return &(joint_state_->vel_);
 }
 
+double Joint::joint_velocity_min() const {
+  LOG_ERROR << "Call the 'joint_velocity_min' which has does not complemented.";
+  return -10000.0;
+}
+
+double Joint::joint_velocity_max() const {
+  LOG_ERROR << "Call the 'joint_velocity_max' which has does not complemented.";
+  return 10000.0;
+}
+
 double Joint::joint_torque() const {
   return joint_state_->tor_;
 }
@@ -143,6 +161,16 @@ const double& Joint::joint_torque_const_ref() const {
 
 const double* Joint::joint_torque_const_pointer() const {
   return &(joint_state_->tor_);
+}
+
+double Joint::joint_torque_min() const {
+  LOG_ERROR << "Call the 'joint_torque_min' which has does not complemented.";
+  return -10000.0;
+}
+
+double Joint::joint_torque_max() const {
+  LOG_ERROR << "Call the 'joint_torque_max' which has does not complemented.";
+  return 10000.0;
 }
 
 // About joint command

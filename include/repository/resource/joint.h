@@ -33,13 +33,22 @@ public:
   const double& joint_position_const_ref()     const;
   const double* joint_position_const_pointer() const;
 
+  double        joint_position_min()           const;
+  double        joint_position_max()           const;
+
   double        joint_velocity()               const;
   const double& joint_velocity_const_ref()     const;
   const double* joint_velocity_const_pointer() const;
 
+  double        joint_velocity_min()           const;
+  double        joint_velocity_max()           const;
+
   double        joint_torque()               const;
   const double& joint_torque_const_ref()     const;
   const double* joint_torque_const_pointer() const;
+
+  double        joint_torque_min()           const;
+  double        joint_torque_max()           const;
 
   ///! About joint command, This is only way that the user update the joint command.
   void updateJointCommand(double);

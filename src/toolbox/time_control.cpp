@@ -10,8 +10,13 @@
 ///! cancel the namespace
 // namespace middleware {
 
-TimeControl::TimeControl()
+TimeControl::TimeControl(bool _s)
   : INVALID_TIME_POINT(std::chrono::high_resolution_clock::time_point::max()) {
+  clear();
+  if (_s) start();
+}
+
+void TimeControl::clear() {
   curr_update_t_ = INVALID_TIME_POINT;
   last_update_t_ = INVALID_TIME_POINT;
   dt_ = 0;
@@ -19,7 +24,7 @@ TimeControl::TimeControl()
   t1_ = INVALID_TIME_POINT;
 }
 
-bool TimeControl::is_running() {
+bool TimeControl::running() {
   return (last_update_t_ != INVALID_TIME_POINT);
 }
 
@@ -44,12 +49,21 @@ double TimeControl::dt_s() {
   return dt()/1000.0;
 }
 
+int64_t TimeControl::span() {
+  int64_t span;
+  t1_ = std::chrono::high_resolution_clock::now();
+  span= std::chrono::duration_cast<std::chrono::milliseconds>
+                (t1_ - t0_).count();
+
+  return span;
+}
+
 void TimeControl::stop(int64_t* span) {
   t1_ = std::chrono::high_resolution_clock::now();
-  curr_update_t_ = INVALID_TIME_POINT;
-  last_update_t_ = INVALID_TIME_POINT;
   if (span) *span= std::chrono::duration_cast<std::chrono::milliseconds>
                       (t1_ - t0_).count();
+
+  clear();
 }
 
 // } /* namespace middleware */
