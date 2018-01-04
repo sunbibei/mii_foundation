@@ -117,7 +117,8 @@ enum JntCmdType {
   CMD_MOTOR_VEL,
   N_JNT_CMD_TYPES,
 };
-
+#define JNTCMDTYPE_TOSTRING(l) \
+    ( ( (const char*[]{"UNKNOWN_CMD_TYPE", "CMD_POS", "CMD_VEL", "CMD_TOR", "CMD_POS_VEL", "CMD_MOTOR_VEL", "N_JNT_CMD_TYPES"} )[(l) + 1] )
 
 enum JntDataType {
   UNKNOWN_TYPE = -1,
@@ -126,6 +127,8 @@ enum JntDataType {
   TOR = 2,
   N_JNT_DATA_TYPES = 3
 };
+#define JNTDATATYPE_TOSTRING(l) \
+    ( ( (const char*[]{"UNKNOWN_TYPE", "POS", "VEL", "TOR", "N_JNT_DATA_TYPES"} )[(l) + 1] )
 
 enum LegType {
   UNKNOWN_LEG = -1,
@@ -135,6 +138,20 @@ enum LegType {
   HR = 3,
   N_LEGS = 4
 };
+#define LEGTYPE_TOSTRING(l) \
+    ( ( (const char*[]){"UNKNOWN_LEG", "FL", "FR", "HL", "HR", "N_LEGS"} )[(l) + 1] )
+
+///! ipsilateral leg
+#define LEGTYPE_IF(l) \
+    ( ( (const LegType[]){UNKNOWN_LEG, HL, HR, FL, FR, UNKNOWN_LEG} )[(l) + 1] )
+
+///! contralateral front leg
+#define LEGTYPE_CF(l) \
+    ( ( (const LegType[]){UNKNOWN_LEG, FR, FL, FR, FL, UNKNOWN_LEG} )[(l) + 1] )
+
+///! contralateral hind leg
+#define LEGTYPE_CH(l) \
+    ( ( (const LegType[]){UNKNOWN_LEG, HR, HL, HR, HL, UNKNOWN_LEG} )[(l) + 1] )
 
 enum JntType {
   UNKNOWN_JNT = -1,
@@ -143,6 +160,8 @@ enum JntType {
   KNEE = 2,
   N_JNTS = 3
 };
+#define JNTTYPE_TOSTRING(l) \
+    ( ( (const char*[]){"UNKNOWN_JNT", "YAW", "HIP", "KNEE", "N_JNTS"} )[(l) + 1] )
 
 #define _DEBUG_INFO_FLAG (true)
 
