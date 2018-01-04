@@ -141,8 +141,16 @@ enum LegType {
 #define LEGTYPE_TOSTRING(l) \
     ( ( (const char*[]){"UNKNOWN_LEG", "FL", "FR", "HL", "HR", "N_LEGS"} )[(l) + 1] )
 
+///! diagonal leg
+#define LEGTYPE_DL(l) \
+    ( ( (const LegType[]){UNKNOWN_LEG, HR, HL, FR, FL, UNKNOWN_LEG} )[(l) + 1] )
+
+///! same side, both front or hind legs
+#define LEGTYPE_SL(l) \
+    ( ( (const LegType[]){UNKNOWN_LEG, FR, FL, HR, HL, UNKNOWN_LEG} )[(l) + 1] )
+
 ///! ipsilateral leg
-#define LEGTYPE_IF(l) \
+#define LEGTYPE_IL(l) \
     ( ( (const LegType[]){UNKNOWN_LEG, HL, HR, FL, FR, UNKNOWN_LEG} )[(l) + 1] )
 
 ///! contralateral front leg
