@@ -10,7 +10,8 @@
 
 #include "foundation/utf.h"
 
-namespace middleware {
+///! cancel the namespace middleware
+// namespace middleware {
 namespace internal {
 
 
@@ -55,6 +56,6 @@ protected:
 };
 
 } /* namespace internal */
-} /* namespace middleware */
+// } /* namespace middleware */
 
 #endif /* INCLUDE_SYSTEM_ROBOT_RESOURCE_MANAGER_H_ */

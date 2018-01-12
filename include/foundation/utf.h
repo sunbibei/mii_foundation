@@ -99,6 +99,10 @@ typedef Eigen::MatrixXd EMX;*/
       } \
     }
 
+#define PRESS_THEN_GO {LOG_WARNING << " -> Press any key to continue."; getchar();}
+//   {LOG_WARNING << std::string(__FILE__).substr(std::string(__FILE__).rfind('/')+1) << ":" << __LINE__ << " -> Press any key to continue."; getchar();}
+
+
 template<class _Type>
 using MiiVector =  std::vector<_Type>;
 
@@ -138,6 +142,8 @@ enum LegType {
   HR = 3,
   N_LEGS = 4
 };
+#define FOR_EACH_LEG(l) for (const auto& l : {LegType::FL, LegType::FR, LegType::HL, LegType::HR})
+
 #define LEGTYPE_TOSTRING(l) \
     ( ( (const char*[]){"UNKNOWN_LEG", "FL", "FR", "HL", "HR", "N_LEGS"} )[(l) + 1] )
 
@@ -184,6 +190,9 @@ enum JntType {
   KNEE = 2,
   N_JNTS = 3
 };
+
+#define FOR_EACH_JNT(j) for (const auto& j : {JntType::YAW, JntType::HIP, JntType::KNEE})
+
 #define JNTTYPE_TOSTRING(l) \
     ( ( (const char*[]){"UNKNOWN_JNT", "YAW", "HIP", "KNEE", "N_JNTS"} )[(l) + 1] )
 
