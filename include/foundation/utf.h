@@ -9,9 +9,8 @@
 #ifndef INCLUDE_SYSTEM_UTILS_UTF_H_
 #define INCLUDE_SYSTEM_UTILS_UTF_H_
 
-// #define USING_STD_IO
-
-#ifndef USING_STD_IO
+#define USING_GLOG
+#ifdef  USING_GLOG
 #include <glog/logging.h>
 #include <glog/log_severity.h>
 #else
@@ -31,10 +30,11 @@
 #define EM3 Eigen::Matrix3d
 #define EMX Eigen::MatrixXd
  
-/*typedef Eigen::Vector2d EV2;
-typedef Eigen::Vector3d EV3;
-typedef Eigen::Matrix3d EM3;
-typedef Eigen::MatrixXd EMX;*/
+// typedef Eigen::Vector2d EV2;
+// typedef Eigen::Vector3d EV3;
+// typedef Eigen::Matrix3d EM3;
+// typedef Eigen::MatrixXd EMX;
+
 // cancel the namespace middleware
 // namespace middleware {
 #define TIMER_INIT \
@@ -99,7 +99,7 @@ typedef Eigen::MatrixXd EMX;*/
       } \
     }
 
-#define PRESS_THEN_GO {LOG_WARNING << " -> Press any key to continue."; getchar();}
+#define PRESS_THEN_GO do {LOG_WARNING << " -> Press any key to continue."; getchar();} while(0);
 //   {LOG_WARNING << std::string(__FILE__).substr(std::string(__FILE__).rfind('/')+1) << ":" << __LINE__ << " -> Press any key to continue."; getchar();}
 
 
@@ -198,7 +198,7 @@ enum JntType {
 
 #define _DEBUG_INFO_FLAG (true)
 
-#ifndef USING_STD_IO
+#ifdef USING_GLOG
 #define LOG_DEBUG     if (_DEBUG_INFO_FLAG) LOG(WARNING)  << "\t"
 #define LOG_INFO      LOG(INFO)     << "\t"
 #define LOG_WARNING   LOG(WARNING)  << "\t"
