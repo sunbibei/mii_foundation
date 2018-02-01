@@ -110,6 +110,7 @@ target_link_libraries(${PROJECT_NAME}_repository
   ${catkin_LIBRARIES}
   ${EIGEN3_LIBRARIES}
   ${PROJECT_NAME}
+  ${PROJECT_NAME}_toolbox
 )
 
 # target_link_libraries(${PROJECT_NAME}_repository

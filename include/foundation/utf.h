@@ -171,7 +171,7 @@ enum LegType {
 #define LEGTYPE_SL(l) \
     ( ( (const LegType[]){UNKNOWN_LEG, FR, FL, HR, HL, UNKNOWN_LEG} )[(l) + 1] )
 
-///! ipsilateral leg
+///! ipsilateral leg, both right or left
 #define LEGTYPE_IL(l) \
     ( ( (const LegType[]){UNKNOWN_LEG, HL, HR, FL, FR, UNKNOWN_LEG} )[(l) + 1] )
 
