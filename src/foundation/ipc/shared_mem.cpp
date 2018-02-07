@@ -5,22 +5,15 @@
  *      Author: bibei
  */
 
-#include "shared_mem.h"
-
-#include "internal/sync.h"
+#include "foundation/ipc/shared_mem.h"
+#include "foundation/internal/sync.h"
 
 using namespace internal;
 
 SINGLETON_IMPL(SharedMem)
 
 void SharedMem::clear() {
-  for (key_t key = KEY_MAP_OF_KEY; key < KEY_MAP_OF_KEY + MAX_SHM_SIZE; key += 0x01) {
-    int _shm_id = shmget(key, 0, 0);
-    if (-1 != _shm_id) {
-      LOG_INFO << "remove the shared memory: " << _shm_id;
-      shmctl(_shm_id, IPC_RMID, NULL);
-    }
-  }
+  __clear(IPC_TYPE::SHM);
 }
 
 void SharedMem::printAllSharedMem() {

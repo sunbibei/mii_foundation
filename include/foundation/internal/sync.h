@@ -41,6 +41,11 @@ bool __add_count_key_map(const std::string& _n);
 bool __sub_count_key_map(const std::string& _n);
 key_t __find_ava_key(const std::string& _n, IPC_TYPE type);
 
+void __clear(IPC_TYPE type = N_IPC);
+
+///! For debug
+void __print_all_ipc();
+
 } /*end namespace internal */
 
 #endif /* INTERNAL_SYNC_H_ */

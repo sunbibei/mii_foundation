@@ -8,7 +8,7 @@
 #ifndef SHARED_MEM_H_
 #define SHARED_MEM_H_
 
-#include "utf.h"
+#include "../utf.h"
 #include <sys/shm.h>
 
 class SharedMem {
